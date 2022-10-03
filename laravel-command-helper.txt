@@ -1,0 +1,28 @@
+php artisan make:model Article -fm
+php artisan make:model Tag -fm
+php artisan make:model Comment -fm
+php artisan make:model State -fm
+php artisan make:migration create_article_tag_table
+
+php artisan migrate:refresh --seed
+
+php artisan migrate --seed
+
+php artisan make:controller ArticleController
+php artisan make:controller HomeController
+
+composer dump-autoload -o
+
+https://techvblogs.com/blog/how-to-install-vue3-laravel
+https://github.com/ospreystudio/vuexadvanced
+
+php artisan make:resource ArticleResource
+php artisan make:resource CommentResource
+php artisan make:resource TagResource
+php artisan make:resource StateResource
+
+https://stackoverflow.com/questions/67252256/docker-laravel-could-not-be-opened-in-append-mode-failed-to-open-stream-perm
+// Посмотреть позже, как добавить дополнительного польователя в докер
+
+https://stitcher.io/blog/constructor-promotion-in-php-8
+// dependency injection php 8

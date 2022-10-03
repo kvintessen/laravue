@@ -1,0 +1,78 @@
+version: "3.7"
+
+services:
+  laravue_nginx:
+    build: ./nginx
+    container_name: ${PREFIX}_nginx
+    depends_on:
+      - ${PREFIX}_app
+    volumes:
+      - ../:/var/www:delegated
+      - ./nginx/sites/:/etc/nginx/conf.d:delegated
+    ports:
+      - "80:80"
+    networks:
+      - laravue-network
+
+  laravue_app:
+    build:
+      context: ./app
+      args:
+        - VERSION=${PHP_VERSION}
+        - NODE_VERSION=${NODE_VERSION}
+    container_name: ${PREFIX}_app
+    working_dir: /var/www
+
+    environment:
+      COMPOSER_MEMORY_LIMIT: 2G
+      XDEBUG_CONFIG: client_host=${XDEBUG_REMOTE_HOST} client_port=${XDEBUG_STORM_PORT} remote_enable=1
+      PHP_IDE_CONFIG: serverName=${XDEBUG_STORM_SERVER_NAME}
+    volumes:
+      - ../:/var/www:delegated
+      - ./app/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini:delegated
+    expose:
+      - "9000"
+    networks:
+      - laravue-network
+
+  laravue_postgres:
+    build:
+      context: ./postgres
+      args:
+        - VERSION=${POSTGRES_VERSION}
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data3:delegated
+    ports:
+      - "5432:5432"
+    container_name: ${PREFIX}_postgres
+
+    depends_on:
+      - ${PREFIX}_app
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - laravue-network
+
+  laravue_redis:
+    build:
+      context: ./redis
+      args:
+        - VERSION=${REDIS_VERSION}
+    container_name: ${PREFIX}_redis
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+    networks:
+      - laravue-network
+
+networks:
+  laravue-network:
+    driver: bridge
+    name: ${PREFIX}_main_network
+    ipam:
+      driver: default
+      config:
+        - subnet: ${SUBNET_IP}/${SUBNET_MASK}
