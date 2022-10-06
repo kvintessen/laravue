@@ -15,7 +15,7 @@ class ArticleController extends Controller
     public function index(): View
     {
         return view('app.article.index', [
-            'articles' => $this->articleService->getAllPaginate( ['tags', 'state']),
+            'articles' => $this->articleService->getAllPaginate(['tags', 'state']),
         ]);
     }
 
