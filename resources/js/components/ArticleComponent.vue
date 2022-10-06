@@ -5,12 +5,24 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
 export default {
     name: 'article-component',
     mounted() {
         this.fetchData()
+    },
+    computed: {
+        ...mapState('article', {
+            id:         state => state.id,
+            title:      state => state.title,
+            img:        state => state.img,
+            body:       state => state.body,
+            created_at: state => state.created_at,
+            comments:   state => state.comments,
+            tags:       state => state.tags,
+            statistic:  state => state.statistic,
+        }),
     },
     methods: {
         ...mapActions('article', ['fetchData']),
