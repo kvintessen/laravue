@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use JetBrains\PhpStorm\ArrayShape;
@@ -14,21 +15,21 @@ class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-
+     *
      * @param Request $request
      */
     #[ArrayShape([
-        'id'          => "int",
+        'id'         => "int",
         'subject'    => "string",
         'body'       => "string",
-        'created_at' => "Carbon"]
+        'created_at' => Carbon::class]
     )]
     public function toArray($request): array
     {
         return [
-            'id' => $this->resource->id,
-            'subject' => $this->resource->subject,
-            'body' => $this->resource->body,
+            'id'         => $this->resource->id,
+            'subject'    => $this->resource->subject,
+            'body'       => $this->resource->body,
             'created_at' => $this->resource->createdAtForHumans(),
         ];
     }

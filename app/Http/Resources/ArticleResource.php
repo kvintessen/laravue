@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use JetBrains\PhpStorm\ArrayShape;
@@ -20,10 +21,10 @@ class ArticleResource extends JsonResource
         'title'      => "string",
         'img'        => "string",
         'body'       => "string",
-        'created_at' => "Carbon",
+        'created_at' => Carbon::class,
         'comments'   => CommentResource::class,
         'tags'       => TagResource::class,
-        'statistic'  => StateResource::class
+        'statistic'  => StateResource::class,
     ])]
     public function toArray( $request): array
     {
