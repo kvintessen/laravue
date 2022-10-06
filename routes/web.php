@@ -29,7 +29,7 @@ Route::get('/articles/tag/{tag}', [App\Http\Controllers\ArticleController::class
 
 
 Route::get('/resources/img/{filename}', static function ($filename) {
-    $path = '/var/www/resources/img/' . $filename;
+    $path = resource_path() . '/img/' . $filename;
 
     if(!File::exists($path)) {
         return response()->json(['message' => 'Image not found.'], 404);
