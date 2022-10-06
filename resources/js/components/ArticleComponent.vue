@@ -1,7 +1,18 @@
 <template>
-  <div id="container">
-    <h1>Данный человек доделает фронт(шутка)</h1>
-  </div>
+    <div class="row mt-5">
+        <div class="col-12 p-3">
+            <img :src="img" class="border rounded mx-auto d-block" alt="...">
+            <h5 class="mt-5">{{ title }}</h5>
+            <p>
+                <span class="tag" v-for="(tag, index) in tags">
+                    <span v-if="tags.length === (index + 1)">{{ tag.label }}</span>
+                    <span v-else>{{ tag.label }} | </span>
+                </span>
+            </p>
+            <p class="card-text">{{ body }}</p>
+            <p>Опубликованно: <i>{{ created_at }}</i></p>
+        </div>
+    </div>
 </template>
 
 <script>
