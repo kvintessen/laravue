@@ -2,25 +2,34 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Comment;
+use Illuminate\Http\Request;
 use JetBrains\PhpStorm\ArrayShape;
+use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property Comment $resource
+ */
 class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
+
+     * @param Request $request
      */
-    #[ArrayShape(['id' => "mixed", 'subject' => "mixed", 'body' => "mixed", 'created_at' => "mixed"])]
+    #[ArrayShape([
+        'id'          => "int",
+        'subject'    => "string",
+        'body'       => "string",
+        'created_at' => "Carbon"]
+    )]
     public function toArray($request): array
     {
         return [
-            'id' => $this->id,
-            'subject' => $this->subject,
-            'body' => $this->body,
-            'created_at' => $this->createdAtForHumans(),
+            'id' => $this->resource->id,
+            'subject' => $this->resource->subject,
+            'body' => $this->resource->body,
+            'created_at' => $this->resource->createdAtForHumans(),
         ];
     }
 }

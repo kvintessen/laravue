@@ -13,9 +13,9 @@ class ArticleController extends Controller
         private ArticleService $articleService
     ){}
 
-    public function show(Request $request): ArticleResource
+    public function show(string $slug): ArticleResource
     {
-        $article = $this->articleService->getBySlug($request->get('slug'), ['comments','tags', 'state']);
+        $article = $this->articleService->getBySlug($slug, ['comments','tags', 'state']);
 
         return new ArticleResource($article);
     }

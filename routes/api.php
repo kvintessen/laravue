@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('article-json', [App\Http\Controllers\API\ArticleController::class, 'show']);
+Route::get('/article-json/{slug}', [App\Http\Controllers\API\ArticleController::class, 'show']);

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string img
  * @property Carbon created_at
  * @property Carbon updated_at
+ * @property State state
  */
 class Article extends Model
 {
