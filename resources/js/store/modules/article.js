@@ -16,41 +16,41 @@ export default {
         statistic:  null,
     },
     mutations: {
-        setIsLoaded(state) {
+        SET_IS_LOADED(state) {
             state.is_loaded = true
         },
-        setSlug(state) {
+        SET_SLUG(state) {
             let url = window.location.pathname
             state.slug = url.substring(url.lastIndexOf('/')+1)
         },
-        setId(state, id) {
+        SET_ID(state, id) {
             state.id = id
         },
-        setTitle(state, title) {
+        SET_TITLE(state, title) {
             state.title = title
         },
-        setImg(state, img) {
+        SET_IMG(state, img) {
             state.img = img
         },
-        setBody(state, body) {
+        SET_BODY(state, body) {
             state.body = body
         },
-        setCreated_at(state, created_at) {
+        SET_CREATED_AT(state, created_at) {
             state.created_at = created_at
         },
-        setComments(state, comments) {
+        SET_COMMENTS(state, comments) {
             state.comments = comments()
         },
-        setTags(state, tags) {
+        SET_TAGS(state, tags) {
             state.tags = tags
         },
-        setStatistic(state, statistic) {
+        SET_STATISTIC(state, statistic) {
             state.statistic = statistic
         },
     },
     actions: {
-        async fetchData({commit, dispatch, state}) {
-            commit('setSlug')
+        async fetchData({commit, state}) {
+            commit('SET_SLUG')
             const response = await fetchArticlesData(state.slug)
             console.log(response)
         }
