@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
@@ -23,17 +23,17 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Paginator::useBootstrap();
         $this->activeLinks();
     }
 
-    public function  activeLinks()
+    public function  activeLinks(): void
     {
-        View::composer('layouts.app', function($view) {
-            $view->with('mainLink', request()->is('/') ? 'menu-link__active' : '');
-            $view->with('articleLink', (request()->is('articles') or  request()->is('articles/*')) ? 'menu-link__active' : '');
+        View::composer('layouts.app', static function($view) {
+            $view->with('mainLink', request()?->is('/') ? 'menu-link__active' : '');
+            $view->with('articleLink', (request()?->is('articles') or request()?->is('articles/*')) ? 'menu-link__active' : '');
         });
     }
 }
