@@ -10,6 +10,7 @@
                     <img src="{{$article->img}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{$article->title}}</h5>
+                        @php /** @see \App\Models\Article::getBodyPreview()  */ @endphp
                         <p class="card-text">{{$article->getBodyPreview()}}</p>
                         <p>{{$article->createdAtForHumans()}}</p>
                         <a href="{{ route('article.show', $article->slug)}}" class="btn btn-primary">Подробнее</a>

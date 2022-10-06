@@ -2,38 +2,41 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
+use App\Models\Article;
+use Illuminate\Http\Request;
 use JetBrains\PhpStorm\ArrayShape;
+use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property Article $resource
+ */
 class ArticleResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
+     * @param Request $request
      */
     #[ArrayShape([
-        'id' => "mixed",
-        'title' => "mixed",
-        'img' => "mixed",
-        'body' => "mixed", '
-        created_at' => "mixed",
-        'comments' => "\Illuminate\Http\Resources\Json\AnonymousResourceCollection",
-        'tags' => "\Illuminate\Http\Resources\Json\AnonymousResourceCollection",
-        'statistic' => "\App\Http\Resources\StateResource"
+        'id'         => "int",
+        'title'      => "string",
+        'img'        => "string",
+        'body'       => "string",
+        'created_at' => Carbon::class,
+        'comments'   => CommentResource::class,
+        'tags'       => TagResource::class,
+        'statistic'  => StateResource::class,
     ])]
-    public function toArray($request)
+    public function toArray( $request): array
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'img' => $this->img,
-            'body' => $this->body,
-            'created_at' => $this->createdAtForHumans(),
-            'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'statistic' => new StateResource($this->whenLoaded('state')),
+            'id'         => $this->resource->id,
+            'title'      => $this->resource->title,
+            'img'        => $this->resource->img,
+            'body'       => $this->resource->body,
+            'created_at' => $this->resource->createdAtForHumans(),
+            'comments'   => CommentResource::collection($this->whenLoaded('comments')),
+            'tags'       => TagResource::collection($this->whenLoaded('tags')),
+            'statistic'  => new StateResource($this->whenLoaded('state')),
         ];
     }
 }

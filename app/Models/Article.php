@@ -12,13 +12,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property int id
+ * @property int    id
  * @property string title
  * @property string slug
  * @property string body
  * @property string img
  * @property Carbon created_at
  * @property Carbon updated_at
+ * @property Carbon published_at
+ * @property State  state
  */
 class Article extends Model
 {
