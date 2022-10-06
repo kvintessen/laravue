@@ -1,21 +1,21 @@
 <template>
   <div id="container">
-    <h1>Данный человек доделает фронт(шутка) - {{fullname}}</h1>
+    <h1>Данный человек доделает фронт(шутка)</h1>
   </div>
 </template>
 
 <script>
-  export default {
+import { mapActions } from 'vuex'
+
+export default {
     name: 'article-component',
-    computed: {
-      fullname() {
-        return this.$store.getters.getFullName;
-      },
-      name(){
-        return this.$store.state.firstname;
-      }
-    }
-  }
+    mounted() {
+        this.fetchData()
+    },
+    methods: {
+        ...mapActions('article', ['fetchData']),
+    },
+}
 </script>
 
 <style scoped>
