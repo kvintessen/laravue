@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/articles',           [ArticleController::class, 'index'])->name('article.index');
 Route::get('/articles/{slug}',    [ArticleController::class, 'show'])->name('article.show');
 Route::get('/articles/tag/{tag}', [ArticleController::class, 'allByTag'])->name('article.tag');
+
+/*
+|--------------------------------------------------------------------------
+| IMAGES
+|--------------------------------------------------------------------------
+*/
+Route::get('/resources/img/{filename}', [ImageController::class, 'getImage']);
