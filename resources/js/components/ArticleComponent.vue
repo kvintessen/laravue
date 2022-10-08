@@ -1,6 +1,9 @@
 <template>
     <div class="row mt-5">
-        <div class="col-12 p-3">
+        <div
+            class="col-12 p-3"
+            v-if="is_loaded"
+        >
             <img :src="img" class="border rounded mx-auto d-block" alt="...">
             <h5 class="mt-5">{{ title }}</h5>
             <p>
@@ -33,6 +36,7 @@ export default {
             comments:   state => state.comments,
             tags:       state => state.tags,
             statistic:  state => state.statistic,
+            is_loaded:  state => state.is_loaded,
         }),
     },
     methods: {
